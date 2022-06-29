@@ -1,0 +1,35 @@
+---
+title: Environment Example
+environments: 
+  - program
+format:
+  latex: default
+  html: default
+filters:
+  - latex-environments
+---
+
+## Overview
+
+Divs with a class name listed in the in the `environments` key will be emitted in LaTeX as an environment with the provided name (or the class name itself if no name is provided). All of the following are valid:
+
+```yaml
+environments: program
+```
+
+```yaml
+environments:
+  - program
+```
+
+```yaml
+environments:
+  program: program-env
+```
+
+## Example
+
+:::{.program}
+The contents of this div will be output in a `program`
+latex environment, but will appear in HTML (and any other output format as a simple div with the class `program`)
+:::
