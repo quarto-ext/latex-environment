@@ -1,6 +1,6 @@
-title: LaTeX Environments
+title: LaTeX Environment
 author: RStudio, PBC
 version: 0.1.0
 contributes:
   filters:
-    - extension.lua
+    - latex-environment.lua
