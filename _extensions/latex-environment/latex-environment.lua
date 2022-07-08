@@ -62,6 +62,6 @@ end
 -- Run in two passes so we process metadata 
 -- and then process the divs
 return {
-    {Meta = readEnvironments}, 
-    {Div = writeEnvironments}
+  {Meta = readEnvironments}, 
+  {Div = writeEnvironments}
 }
