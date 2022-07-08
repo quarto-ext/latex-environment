@@ -26,7 +26,7 @@ environments: [center]
 
 ```yaml
 environments:
-  program: center-env
+  center: center-env
 ```
 
 ## Example
