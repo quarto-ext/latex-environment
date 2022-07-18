@@ -84,7 +84,8 @@ filters:
 commands: [ce]
 ---
 
-This will replace spans of class `ce` with the `\ce{}` command for LaTeX output, but leave the spans intact for HTML output. So `[H2SO4]{.ce}` becomes [H2SO4]{.ce}.
+This will replace spans of class `ce` with the `\ce{}` command for LaTeX output, 
+but leave the spans intact for HTML output. So `[H2SO4]{.ce}` becomes [H2SO4]{.ce}.
 
 ```
 
