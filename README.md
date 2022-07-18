@@ -14,6 +14,8 @@ quarto install extension quarto-ext/latex-environment
 
 ## Usage
 
+### Environments
+
 Divs with a class name listed in the in the `environments` key will be emitted in LaTeX as an environment with the provided name (or the class name itself if no name is provided). All of the following are valid:
 
 ```yaml
@@ -47,6 +49,43 @@ The contents of this div will be output in a `center`
 LaTeX environment, but will appear in HTML (and any other output 
 format as a simple div with the class `center`)
 :::
+```
+
+### Commands
+
+Spans with a class name listed in the in the `commands` key will be emitted in LaTeX as a command with the provided name (or the class name itself if no name is provided). All of the following are valid:
+
+```yaml
+commands: ce
+```
+
+```yaml
+command: [ce]
+```
+
+```yaml
+commands:
+  ce: ce-command
+```
+
+## Example
+
+```markdown
+---
+title: LaTeX Command
+format:
+   pdf:
+     include-in-header: 
+       text: |
+         \usepackage{mhchem}
+   html: default
+filters:
+   - latex-environment
+commands: [ce]
+---
+
+This will replace spans of class `ce` with the `\ce{}` command for LaTeX output, but leave the spans intact for HTML output. So `[H2SO4]{.ce}` becomes [H2SO4]{.ce}.
+
 ```
 
 

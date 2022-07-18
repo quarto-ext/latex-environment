@@ -1,12 +1,18 @@
 ---
 title: LaTeX Environment
 format:
-   pdf: default
+   pdf:
+     include-in-header: 
+       text: |
+         \usepackage{mhchem}
    html: default
 filters:
    - latex-environment
 environments: [center]
+commands: [ce]
 ---
+
+## LaTeX Environments
 
 ::: {.center}
 The contents of this div will be output in a `center`
@@ -14,3 +20,7 @@ LaTeX environment, but will appear in HTML (and any other output
 format as a simple div with the class `center`)
 :::
 
+
+## LaTeX Commands
+
+Will replace spans of class `ce` with the `\ce{}` command for LaTeX output, but leave the spans intact for HTML output. So `[H2SO4]{.ce}` becomes [H2SO4]{.ce}.

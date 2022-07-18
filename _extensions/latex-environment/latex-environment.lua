@@ -2,6 +2,7 @@
 -- Copyright (C) 2020 by RStudio, PBC
 
 local classEnvironments = pandoc.MetaMap({})
+local classCommands = pandoc.MetaMap({})
 
 -- helper that identifies arrays
 local function tisarray(t)
@@ -34,6 +35,31 @@ local function readEnvironments(meta)
   end
 end
 
+local function readCommands(meta) 
+  local env = meta['commands']
+  if env ~= nil then
+    if tisarray(env) then 
+      -- read an array of strings
+      for i,v in ipairs(env) do        
+        local value = pandoc.utils.stringify(v)
+        classCommands[value] = value
+      end
+    else
+      -- read key value pairs
+      for k,v in pairs(env) do
+        local key = pandoc.utils.stringify(k)
+        local value = pandoc.utils.stringify(v)
+        classCommands[key] = value
+      end
+    end
+  end
+end
+
+local function readEnvsAndCommands(meta)
+  readEnvironments(meta)
+  readCommands(meta)
+end
+
 -- use the environments from metadata to 
 -- emit a custom environment for latex
 local function writeEnvironments(divEl)
@@ -59,9 +85,31 @@ local function writeEnvironments(divEl)
   end
 end
 
+
+-- use the environments from metadata to 
+-- emit a custom environment for latex
+local function writeCommands(spanEl)
+  if quarto.doc.isFormat("latex") then
+    for k,v in pairs(classCommands) do
+      if spanEl.attr.classes:includes(k) then
+
+        local beginCommand = pandoc.RawInline('latex', '\\' .. pandoc.utils.stringify(v) .. '{')
+        local endCommand = pandoc.RawInline('latex', '}')
+
+        local result = spanEl.content
+        table.insert(result, 1, beginCommand)
+        table.insert(result, endCommand)
+
+        return result
+      end
+    end
+  end
+end
+
+
 -- Run in two passes so we process metadata 
 -- and then process the divs
 return {
-  {Meta = readEnvironments}, 
-  {Div = writeEnvironments}
+  {Meta = readEnvsAndCommands}, 
+  {Div = writeEnvironments, Span = writeCommands}
 }
