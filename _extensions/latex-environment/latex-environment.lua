@@ -73,14 +73,13 @@ local function writeEnvironments(divEl)
         -- check if custom options or arguments are present
         -- and add them to the environment accordingly
         local opts = divEl.attr.attributes['options']
+        if opts then
+          beginEnv = beginEnv .. '[' .. opts .. ']'
+        end
+
         local args = divEl.attr.attributes['arguments']
-        
-        if opts and args then
-          beginEnv = '\\begin' .. '{' .. v .. '}[' .. opts .. ']{' .. args .. '}'
-        elseif opts then
-          beginEnv = '\\begin' .. '{' .. v .. '}[' .. opts .. ']'
-        elseif args then
-          beginEnv = '\\begin' .. '{' .. v .. '}{' .. args .. '}'
+        if args then
+          beginEnv = beginEnv .. '{' .. args .. '}'
         end
         
         -- if the first and last div blocks are paragraphs then we can
