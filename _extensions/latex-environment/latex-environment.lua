@@ -70,6 +70,18 @@ local function writeEnvironments(divEl)
         local beginEnv = '\\begin' .. '{' .. v .. '}'
         local endEnv = '\n\\end{' .. v .. '}'
         
+        -- check if custom options or arguments are present
+        -- and add them to the environment accordingly
+        local opts = divEl.attr.attributes['options']
+        if opts then
+          beginEnv = beginEnv .. '[' .. opts .. ']'
+        end
+
+        local args = divEl.attr.attributes['arguments']
+        if args then
+          beginEnv = beginEnv .. '{' .. args .. '}'
+        end
+        
         -- if the first and last div blocks are paragraphs then we can
         -- bring the environment begin/end closer to the content
         if divEl.content[1].t == "Para" and divEl.content[#divEl.content].t == "Para" then
