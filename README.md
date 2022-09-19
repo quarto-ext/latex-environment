@@ -31,7 +31,7 @@ environments:
   center: center-env
 ```
 
-## Example
+#### Example
 
 ```markdown
 ---
@@ -50,6 +50,26 @@ LaTeX environment, but will appear in HTML (and any other output
 format as a simple div with the class `center`)
 :::
 ```
+
+
+#### Options and Arguments
+
+In addition, you may specify options and arguments for the environment as attributes of the div. For example:
+
+```markdown
+::: {.foo options="option" arguments="argument"}
+body
+:::
+```
+
+would transform to:
+
+```tex
+\begin{foo}[option]{argument}
+body
+\end{foo}
+```
+
 
 ### Commands
 
