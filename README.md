@@ -109,6 +109,16 @@ but leave the spans intact for HTML output. So `[H2SO4]{.ce}` becomes [H2SO4]{.c
 
 ```
 
+### Options
 
+You may also provide options for commands using the `options` attribute. For example:
 
+```
+[Content]{.command options="option1"}
+```
 
+generates the following:
+
+```
+\command[option1]{Content}
+```
