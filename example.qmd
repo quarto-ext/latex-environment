@@ -1,12 +1,19 @@
 ---
 title: LaTeX Environment
 format:
-   pdf: default
+   pdf:
+     include-in-header: 
+       text: |
+         \usepackage{mhchem}
+     keep-tex: true
    html: default
 filters:
    - latex-environment
-environments: [center]
+environments: [center, enumerate]
+commands: [ce, item]
 ---
+
+## LaTeX Environments
 
 ::: {.center}
 The contents of this div will be output in a `center`
@@ -14,3 +21,17 @@ LaTeX environment, but will appear in HTML (and any other output
 format as a simple div with the class `center`)
 :::
 
+## LaTeX Commands
+
+Will replace spans of class `ce` with the `\ce{}` command for LaTeX output, but leave the spans intact for HTML output. So `[H2SO4]{.ce}` becomes [H2SO4]{.ce}.
+
+## Advanced Environments and Commands
+
+You can also combine environments and commands (with options) to address more complex scenarios.
+
+Both environments and commands can accept an `options` attribute which will be properly applied in LaTeX and will be available as an attribute in HTML output.
+
+:::{.enumerate}
+[]{.item options="--"} Question 1
+[]{.item options="--"} Question 2
+:::
