@@ -63,7 +63,7 @@ end
 -- use the environments from metadata to
 -- emit a custom environment for latex
 local function writeEnvironments(divEl)
-  if quarto.doc.isFormat("latex") then
+  if quarto.doc.is_format("latex") then
     for k, v in pairs(classEnvironments) do
       if divEl.attr.classes:includes(k) then
         -- process this into a latex environment
@@ -100,7 +100,7 @@ end
 -- use the environments from metadata to
 -- emit a custom environment for latex
 local function writeCommands(spanEl)
-  if quarto.doc.isFormat("latex") then
+  if quarto.doc.is_format("latex") then
     for k, v in pairs(classCommands) do
       if spanEl.attr.classes:includes(k) then
 
