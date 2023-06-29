@@ -9,7 +9,7 @@ This is Quarto extension that enables `divs` to be output as a custom environmen
 To install this extension in your current directory (or into the Quarto project that you're currently working in),  use the following command:
 
 ```
-quarto install extension quarto-ext/latex-environment
+quarto add quarto-ext/latex-environment
 ```
 
 ## Usage
