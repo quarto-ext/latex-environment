@@ -97,6 +97,17 @@ local function writeEnvironments(divEl)
   end
 end
 
+local function buildCommandArgs(opts, format)
+  local function wrap(o) 
+    return string.format(format, o)
+  end 
+  local t = pandoc.List()
+  for str in string.gmatch(opts, "([^"..",".."]+)") do
+    t:insert(str)
+  end
+  return table.concat(t:map(wrap), "")
+end
+
 -- use the environments from metadata to
 -- emit a custom environment for latex
 local function writeCommands(spanEl)
@@ -105,19 +116,25 @@ local function writeCommands(spanEl)
       if spanEl.attr.classes:includes(k) then
 
         -- resolve the begin command
-        local beginCommand = pandoc.RawInline('latex', '\\' .. pandoc.utils.stringify(v) .. '{')
+        local beginCommand = '\\' .. pandoc.utils.stringify(v)
         local opts = spanEl.attr.attributes['options']
+        local args = spanEl.attr.attributes['arguments']
         if opts then
-          beginCommand = pandoc.RawInline('latex', '\\' .. pandoc.utils.stringify(v) .. '[' .. opts .. ']{')
+          beginCommand = beginCommand .. buildCommandArgs(opts, "[%s]")
+        end
+        if args then
+          beginCommand = beginCommand .. buildCommandArgs(args, "{%s}")
         end
 
+        local beginCommandRaw = pandoc.RawInline('latex', beginCommand .. '{')
+
         -- the end command
-        local endCommand = pandoc.RawInline('latex', '}')
+        local endCommandRaw = pandoc.RawInline('latex', '}')
 
         -- attach the raw inlines to the span contents
         local result = spanEl.content
-        table.insert(result, 1, beginCommand)
-        table.insert(result, endCommand)
+        table.insert(result, 1, beginCommandRaw)
+        table.insert(result, endCommandRaw)
 
         return result
       end

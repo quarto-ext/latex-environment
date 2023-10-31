@@ -10,7 +10,7 @@ format:
 filters:
    - latex-environment
 environments: [center, enumerate]
-commands: [ce, item]
+commands: [ce, item, colorbox, fcolorbox]
 ---
 
 ## LaTeX Environments
@@ -27,11 +27,19 @@ Will replace spans of class `ce` with the `\ce{}` command for LaTeX output, but 
 
 ## Advanced Environments and Commands
 
-You can also combine environments and commands (with options) to address more complex scenarios.
+You can also combine environments and commands (with options) to address more complex scenarios. Usually with LaTeX: 
+* `[opts]` is used for optional arguments
+* `{args}` for mandatory arguments
 
-Both environments and commands can accept an `options` attribute which will be properly applied in LaTeX and will be available as an attribute in HTML output.
+Both environments and commands can accept an `options` and `arguments` attributes which will be properly applied in LaTeX and will be available as an attribute in HTML output.
 
 :::{.enumerate}
 []{.item options="--"} Question 1
 []{.item options="--"} Question 2
 :::
+
+[This text is in a orange background]{.colorbox arguments="BurntOrange"}
+
+If you have multiple arguments or options to pass to a command, use comma separated string
+
+[This one will have a black border]{.fcolorbox arguments="black,red"}
