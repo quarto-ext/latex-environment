@@ -80,7 +80,7 @@ commands: ce
 ```
 
 ```yaml
-command: [ce]
+commands: [ce]
 ```
 
 ```yaml
